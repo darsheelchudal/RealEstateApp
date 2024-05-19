@@ -1,7 +1,8 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import { log } from "console";
+import userRouter from "./routes/user.route.js";
+import authRouter from "./routes/auth.route.js";
 dotenv.config();
 const app = express();
 
@@ -15,9 +16,24 @@ mongoose
   })
   .catch((error) => {
     console.log(error);
-    console.log("Helo");
   });
+
+app.use(express.json());
 
 app.listen(PORT, () => {
   console.log(`I am at server PORT : ${PORT}`);
+});
+
+app.use("/api/user", userRouter);
+app.use("/api/auth", authRouter);
+
+//Middleware
+app.use((error, req, res, next) => {
+  const statusCode = error.statusCode || 500;
+  const message = error.message || "Internal Server Error";
+  return res.status(statusCode).json({
+    success: false,
+    statusCode,
+    message,
+  });
 });
