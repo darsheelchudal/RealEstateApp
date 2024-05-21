@@ -1,5 +1,3 @@
-// SignIn.jsx
-
 import React from "react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
@@ -13,7 +11,7 @@ import {
 
 function SignIn() {
   const [formData, setFormData] = useState({});
-  const { loading, error, currentUser } = useSelector((state) => state.user);
+  const { loading, error } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -36,14 +34,14 @@ function SignIn() {
         body: JSON.stringify(formData),
       });
       const data = await res.json();
-      console.log("API Response Data:", data); // Log the received data
-
+      console.log(data); // Log the received data
+      console.log();
       if (data.success === false) {
         dispatch(signInFailure(data.message));
         return;
       }
 
-      dispatch(signInSuccess(data)); // Assuming data contains the user object
+      dispatch(signInSuccess(data));
       navigate("/");
     } catch (error) {
       dispatch(signInFailure(error.message));
