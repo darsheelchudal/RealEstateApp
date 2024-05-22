@@ -8,6 +8,7 @@ import {
   signInFailure,
   signInSuccess,
 } from "../redux/user/userSlice";
+import axios from "axios";
 import OAuth from "../components/OAuth";
 
 function SignIn() {
@@ -32,11 +33,11 @@ function SignIn() {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify(formData),
       });
       const data = await res.json();
-      console.log(data); // Log the received data
-      console.log();
+      console.log("Custom Sign in data ", data); // Log the received data
       if (data.success === false) {
         dispatch(signInFailure(data.message));
         return;

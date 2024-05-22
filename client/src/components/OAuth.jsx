@@ -5,8 +5,9 @@ import { useDispatch } from "react-redux";
 import { signInSuccess } from "../redux/user/userSlice";
 import { useNavigate } from "react-router-dom";
 
-function OAuth() {
+export default function OAuth() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const handleGoogleClick = async () => {
     try {
       const provider = new GoogleAuthProvider();
@@ -24,7 +25,12 @@ function OAuth() {
           photo: result.user.photoURL,
         }),
       });
+      if (!res.ok) {
+        throw new Error("Failed to authenticate with server");
+      }
+
       const data = await res.json();
+      console.log("Google Auth Data", data);
       dispatch(signInSuccess(data));
       navigate("/");
     } catch (error) {
@@ -43,5 +49,3 @@ function OAuth() {
     </>
   );
 }
-
-export default OAuth;
