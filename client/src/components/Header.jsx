@@ -23,7 +23,7 @@ function Header() {
             />
             <FaSearch className="text-slate-600" />
           </form>
-          <ul className="flex gap-4">
+          <ul className="flex gap-4 items-center">
             <Link to="/">
               <li className="sm:inline hidden text-slate-600 hover:text-slate-900 hover:underline">
                 Home
@@ -34,7 +34,7 @@ function Header() {
                 About
               </li>
             </Link>
-            <Link to="/sign-in">
+            <Link to="/profile">
               {currentUser ? (
                 <img
                   className="h-7 rounded-full w-7 object-cover"
