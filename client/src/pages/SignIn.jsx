@@ -37,7 +37,6 @@ function SignIn() {
         body: JSON.stringify(formData),
       });
       const data = await res.json();
-      console.log("Custom Sign in data ", data); // Log the received data
       if (data.success === false) {
         dispatch(signInFailure(data.message));
         return;

@@ -63,29 +63,29 @@ function Profile() {
     e.preventDefault();
     try {
       dispatch(updateUserStart());
+
       const res = await fetch(
         `http://localhost:8000/api/user/update/${currentUser._id}`,
         {
           method: "POST",
           headers: {
             "Content-type": "application/json",
-            Authorization: `Bearer ${currentUser.token}`,
           },
+          credentials: "include",
           body: JSON.stringify(formData),
         }
       );
       const data = await res.json();
+
       if (data.success === false) {
         dispatch(updateUserFailure(data.message));
         return;
       }
-      if (!res.ok) {
-        dispatch(updateUserFailure(data.message));
-        return;
-      }
+
       dispatch(updateUserSuccess(data));
+      setUpdateSuccess(true);
     } catch (error) {
-      updateUserFailure(error.message);
+      dispatch(updateUserFailure(error.message));
     }
   };
   return (
@@ -143,7 +143,6 @@ function Profile() {
           placeholder="password"
           className="border p-3 rounded-lg"
           id="password"
-          defaultValue={currentUser.password}
           onChange={handleChange}
         />
         <button className="bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80">
