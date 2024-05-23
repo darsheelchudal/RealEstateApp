@@ -9,8 +9,11 @@ export const test = (req, res) => {
 };
 
 export const updateUser = async (req, res, next) => {
-  if (req.user.id != req.params.id)
+  console.log("Update request received for user ID: ", req.params.id);
+
+  if (req.user.id != req.params.id) {
     return next(errorHandler(401, "You can only update your own account"));
+  }
   try {
     if (req.body.password) {
       req.body.password = bcryptjs.hashSync(req.body.password, 10);
@@ -28,6 +31,10 @@ export const updateUser = async (req, res, next) => {
       },
       { new: true }
     );
+
+    if (!updatedUser) {
+      return next(errorHandler(404, "User not found"));
+    }
     const { password, ...rest } = updatedUser._doc;
 
     res.status(200).json(rest);
