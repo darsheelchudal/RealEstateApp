@@ -57,7 +57,10 @@ function Profile() {
   };
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.id]: e.target.value });
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value,
+    });
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -74,7 +77,9 @@ function Profile() {
           body: JSON.stringify(formData),
         }
       );
+      console.log(res);
       const data = await res.json();
+      console.log(data);
 
       if (data.success === false) {
         dispatch(updateUserFailure(data.message));
@@ -82,7 +87,6 @@ function Profile() {
       }
 
       dispatch(updateUserSuccess(data));
-      setUpdateSuccess(true);
     } catch (error) {
       dispatch(updateUserFailure(error.message));
     }

@@ -7,3 +7,5 @@ router.get("/test", test);
 router.post("/update/:id", verifyToken, updateUser);
 
 export default router;
+
+// `http://localhost:8000/api/user/update/${currentUser._id}`,
