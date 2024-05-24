@@ -1,4 +1,3 @@
-// userSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
@@ -46,4 +45,6 @@ export const {
   updateUserSuccess,
   updateUserFailure,
 } = userSlice.actions;
+
 export default userSlice.reducer;
+  
