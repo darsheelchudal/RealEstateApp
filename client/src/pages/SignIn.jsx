@@ -35,6 +35,12 @@ function SignIn() {
         },
         body: JSON.stringify(formData),
       });
+
+      const token = document.cookie
+        .split(";")
+        .find((cookie) => cookie.trim().startsWith("access_token="));
+      console.log("JWT Token:", token ? token.split("=")[1] : null);
+
       const data = await res.json();
       if (data.success === false) {
         dispatch(signInFailure(data.message));

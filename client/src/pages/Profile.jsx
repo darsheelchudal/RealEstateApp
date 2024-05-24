@@ -77,6 +77,7 @@ function Profile() {
           body: JSON.stringify(formData),
         }
       );
+
       console.log(res);
       const data = await res.json();
       console.log(data);

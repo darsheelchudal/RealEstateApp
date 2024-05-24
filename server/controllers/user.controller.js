@@ -30,6 +30,8 @@ export const updateUser = async (req, res, next) => {
     );
 
     const { password, ...rest } = updatedUser._doc;
+    console.log("Request cookies:", req.cookies);
+    console.log("Request headers:", req.headers);
 
     res.status(200).json(rest);
   } catch (error) {
