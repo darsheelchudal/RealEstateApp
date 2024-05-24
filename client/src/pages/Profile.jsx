@@ -22,6 +22,7 @@ function Profile() {
   const [fileUploadError, setFileUploadError] = useState(false);
   const [formData, setFormData] = useState({});
   const dispatch = useDispatch();
+  // console.log("***********", currentUser);
 
   useEffect(() => {
     if (file) {
@@ -62,6 +63,8 @@ function Profile() {
       [e.target.id]: e.target.value,
     });
   };
+
+  console.log(formData);
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -70,15 +73,16 @@ function Profile() {
       const res = await fetch(
         `http://localhost:8000/api/user/update/${currentUser._id}`,
         {
-          method: "POST",
+          method: "PUT",
           headers: {
             "Content-type": "application/json",
+            // authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(formData),
         }
       );
 
-      console.log(res);
+      console.log("resBosy", res);
       const data = await res.json();
       console.log(data);
 

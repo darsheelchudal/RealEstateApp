@@ -1,6 +1,8 @@
-export const errorHandler = (statusCode, message) => {
-  const error = new Error();
-  error.statusCode = statusCode;
-  error.message = message;
-  return error;
+export const errorHandler = (err,req,res,next) => {
+  console.log(err)
+  if(err.status===500){
+    res.status(500).send("setsgg")
+    return
+  }
 };
+
